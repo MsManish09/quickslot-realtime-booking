@@ -1,0 +1,342 @@
+/* GOLD THEME VARIABLES */
+:root {
+  --gold-light: #fff6dc;
+  --gold-soft: #f5e2b8;
+  --gold-primary: #e6c77a;
+  --gold-deep: #c9a227;
+  --gold-dark: #8c6b1f;
+
+  --dark: #1a1a1a;
+  --dark-soft: #2a2a2a;
+
+  --text-dark: #2b2b2b;
+  --text-light: #ffffff;
+
+  --glass: rgba(255, 255, 255, 0.6);
+}
+
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Inter", "Segoe UI", sans-serif;
+}
+
+body {
+  background: linear-gradient(
+    to bottom right,
+    var(--gold-light),
+    var(--gold-soft)
+  );
+  color: var(--text-dark);
+  min-height: 100vh;
+}
+
+/* LAYOUT */
+main {
+  padding: 4rem 8%;
+}
+
+/*TITLE SECTION */
+.titleContainer {
+  display: flex;
+  justify-content: space-between;
+  gap: 3rem;
+  flex-wrap: wrap;
+  align-items: stretch;
+}
+
+.titleContainerEle {
+  flex: 1;
+  min-width: 300px;
+}
+
+/* INTRO TEXT */
+.intro h1 {
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.intro span {
+  color: var(--gold-deep);
+}
+
+.intro p {
+  margin-top: 1.2rem;
+  font-size: 1rem;
+  color: #555;
+  max-width: 600px;
+}
+
+/* STATS */
+.statsContainer {
+  display: flex;
+  gap: 1.5rem;
+  margin-top: 2rem;
+  flex-wrap: wrap;
+}
+
+.stats {
+  background: var(--glass);
+  backdrop-filter: blur(10px);
+  padding: 1.2rem 1.5rem;
+  border-radius: 14px;
+  box-shadow: 0 6px 20px rgba(201, 162, 39, 0.15);
+  min-width: 120px;
+  transition: 0.3s ease;
+  border: 1px solid rgba(201, 162, 39, 0.2);
+}
+
+.stats:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(201, 162, 39, 0.3);
+}
+
+.stats p {
+  font-size: 0.8rem;
+  color: #666;
+}
+
+.stats h4 {
+  font-size: 1.4rem;
+  margin-top: 0.4rem;
+  color: var(--gold-dark);
+}
+
+/* LIVE SYNC CARD */
+#liveSyncContainer {
+  background: linear-gradient(
+    145deg,
+    var(--gold-primary),
+    var(--gold-deep)
+  );
+  color: var(--text-light);
+  padding: 2rem;
+  border-radius: 18px;
+  box-shadow: 0 15px 40px rgba(140, 107, 31, 0.3);
+  max-width: 350px;
+  flex: 0 0 auto;   
+  align-self: flex-start;
+}
+
+#liveSyncContainer h3 {
+  font-size: 1.4rem;
+  margin-bottom: 1rem;
+}
+
+#liveSyncContainer h5 {
+  font-weight: 500;
+  margin-bottom: 0.8rem;
+  opacity: 0.9;
+  text-decoration: underline;
+  margin-left: .5rem;
+}
+
+#liveSyncContainer p {
+  font-size: 0.9rem;
+  line-height: 1.4;
+  opacity: 0.75;
+}
+
+/* MAIN CONTENT AREA */
+.mainContainer {
+  margin-top: 4rem;
+  display: grid;
+  grid-template-columns: 420px 1fr;
+  gap: 2.2rem;
+}
+
+.mainContainerEle {
+  background: #f2efe9;
+  border-radius: 22px;
+  padding: 2rem;
+
+  box-shadow:
+    0 8px 20px rgba(0,0,0,0.08),
+    inset 0 1px 0 rgba(255,255,255,0.6);
+}
+
+#searchContainer p {
+  font-size: .8rem;
+  letter-spacing: 1px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #5e5a55;
+}
+
+#searchContainer h2 {
+  margin: .2rem 0 1.8rem 0;
+  font-size: 1.9rem;
+}
+
+/* form */
+form { 
+    display:flex; 
+    flex-direction:column; 
+    gap:1.3rem;
+}
+
+.formEle {
+  width: 100%;
+}
+
+.formEle label {
+  display: block;
+  width: 100%;
+}
+
+.formEle input,
+.formEle select {
+  width: 100%;
+  display: block;
+}
+
+
+label { font-weight:600; }
+
+input, select {
+  padding: 1rem;
+  border-radius: 16px;
+  border: 1px solid #d7c7a0;
+  background: #ece7dd;
+  font-size: 1rem;
+}
+
+.button {
+  margin-top: .8rem;
+  padding: 1.1rem;
+  border-radius: 999px;
+  border: none;
+  font-size: 1.1rem;
+  font-weight: 700;
+  cursor: pointer;
+
+  background: linear-gradient(90deg,#f3c14a,#f59c1a);
+  color: #2d2005;
+
+  box-shadow: 0 10px 25px rgba(245,156,26,.45);
+}
+
+.mainContainerEle:last-child {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+#slotsDisplay,
+#bookings {
+  background: #f7f4ee;
+  border-radius: 20px;
+  padding: 1.6rem;
+
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.9),
+    0 6px 14px rgba(0,0,0,0.08);
+}
+
+#slotsDisplay p,
+#bookings p {
+  font-size: .8rem;
+  letter-spacing: 1px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #6b6254;
+}
+
+#slotsDisplay h2,
+#bookings h2 {
+  margin: .2rem 0 1.3rem 0;
+  font-size: 1.8rem;
+}
+
+
+#slotsGrid,
+#bookingsDisplay {
+  background: #efe3bf;
+  border: 2px dashed #e2c982;
+  border-radius: 18px;
+  padding: 1.6rem;
+  text-align: center;
+  color: #6b5c2c;
+}
+
+
+#slotsGrid.hasSlots {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: flex-start;
+  background: transparent;
+  border: none;
+  padding: 0;
+}
+
+/* slots */
+.slot {
+  padding: 10px 16px;
+  border-radius: 999px;
+  background: white;
+  border: 1px solid #e3c677;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.slot:hover {
+  background: #f3c14a;
+}
+
+
+#bookingsDisplay.hasBookings {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  background: transparent;
+  border: none;
+  padding: 0;
+}
+
+.bookingCard {
+  background: white;
+  border-radius: 16px;
+  padding: 14px 16px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+
+
+/* RESPONSIVE DESIGN */
+@media (max-width: 900px) {
+  main {
+    padding: 3rem 5%;
+  }
+
+  .titleContainer {
+    flex-direction: column;
+  }
+
+  #liveSyncContainer {
+    margin-top: 2rem;
+  }
+
+  .statsContainer {
+    justify-content: center;
+  }
+
+  .mainContainer {
+    grid-template-columns: 1fr;
+  }
+
+
+}
+
+@media (max-width: 500px) {
+  .stats {
+    flex: 1 1 100%;
+  }
+
+  #liveSyncContainer {
+    padding: 1.5rem;
+  }
+}

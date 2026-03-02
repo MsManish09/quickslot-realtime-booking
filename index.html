@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>quickslot | realtime booking</title>
+    <!-- css -->
+     <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <main>
+        <!-- header -->
+        <div class="titleContainer">
+
+                <div class="intro titleContainerEle">
+                    <h1>Book Smarter. Sync Instantly.<span style="color: goldenrod;" > Real-Time Scheduling.</span></h1>
+                    <p>Live provider rosters, network-time synced slots, conflict-free bookings, and real-time orchestration - all wrapped in a seamless interface.</p>
+
+                    <!-- stats -->
+                     <div class="statsContainer">
+                        <div class="stats">
+                            <p>Providers</p>
+                            <h4 id="providerStat" >-</h4>
+                        </div>
+                        <div class="stats">
+                            <p>Booked</p>
+                            <h4 id="bookedStat" >0</h4>
+                        </div>
+                        <div class="stats">
+                            <p>UTC Clock</p>
+                            <h4 id="ClockStat" >12:00:00 AM</h4>
+                        </div>
+                    </div>
+                </div>
+                
+                <div id="liveSyncContainer" class="titleContainerEle" >
+                    <h3>Live Sync Status</h3>
+
+                    <h5 id="lastSync" >Fallback to client 10:00:06 am</h5>
+                    <p>Providers fetched from JSONPlaceholder. Slot freshness powered by WorldTime API. Bookings saved locally for demo mode.</p>
+                </div>
+                
+            </div>
+
+            
+        </div>
+
+        <!-- main -->
+        <div class="mainContainer">
+
+            <!-- search  -->
+            <div class="mainContainerEle" id="searchContainer" >
+                <p>Orchestrator</p>
+                <h2>Search Availability</h2>
+
+                <form action="">
+                    <div class="formEle">
+                        <label for="providerSelect">Provider</label>
+                        <select name="providerSelect" id="providerSelect" required>
+                            <option value="">Select a provider</option>
+                        </select>
+                    </div>
+
+                    <div class="formEle">
+                        <label for="dateSelect">Date</label>
+                        <input type="date" id="dateSelect" required>
+                    </div>
+
+                    <button id="searchSlot" class="button">Search</button>
+                </form>
+            </div>
+
+            <!-- display -->
+            <div class="mainContainerEle">
+                <div id="slotsDisplay">
+                    <p>live Slots</p>
+                    <h2 id="selectedProvider-date" >
+                        Select Provider + date
+                    </h2>
+                    <div id="slotsGrid">
+                        No data yet!
+                    </div>
+                </div>
+
+                <div id="bookings">
+                    <p>Upcoming</p>
+                    <h2>My bookings</h2>
+                    <div id="bookingsDisplay">
+                        No bookings yet!
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </main>
+    <!-- script -->
+
+     <script src="app.js" type="module"></script>
+</body>
+</html>
