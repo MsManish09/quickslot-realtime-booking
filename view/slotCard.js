@@ -1,0 +1,15 @@
+
+export function slotCard(slots){
+    
+    
+}
+
+function slotCardCreation(slot){
+    return(`
+        <div class="slot slot-booked-${slot.isBooked}">
+            <span class="slotTime">${slot.time}</span>
+            <span class="slotStatus">${slot.isBooked? 'Unavailable' : 'Available'}</span>
+        </div>
+        `)
+    
+}

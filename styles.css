@@ -275,16 +275,66 @@ input, select {
 
 /* slots */
 .slot {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+
   padding: 10px 16px;
   border-radius: 999px;
-  background: white;
-  border: 1px solid #e3c677;
   cursor: pointer;
   font-weight: 600;
+  font-size: 0.95rem;
+
+  background: white;
+  border: 1px solid #e3c677;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+  transition: all .25s ease;
 }
 
-.slot:hover {
-  background: #f3c14a;
+/* hover only for AVAILABLE slots */
+.slot-booked-false:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 18px rgba(201,162,39,.25);
+  background: #fff7da;
+}
+
+/* TIME TEXT */
+.slotTime {
+  color: var(--gold-dark);
+  font-weight: 700;
+}
+
+/* STATUS BADGE (base) */
+.slotStatus {
+  font-size: 0.7rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 4px 8px;
+  border-radius: 999px;
+}
+
+/* AVAILABLE SLOT */
+.slot-booked-false .slotStatus {
+  background: #fff3c4;
+  color: #7a5d00;
+  border: 1px solid #ecd48a;
+}
+
+/* BOOKED SLOT */
+.slot-booked-true {
+  background: #f1eee7;
+  border: 1px dashed #cbbd95;
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+.slot-booked-true .slotTime {
+  color: #8f8772;
+}
+
+.slot-booked-true .slotStatus {
+  background: #d7d0c0;
+  color: #6a6457;
 }
 
 

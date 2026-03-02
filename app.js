@@ -1,4 +1,5 @@
-import { getState, initState, StateSubscriber, updateProviders, updateUtcNow } from "./state.js";
+import { generateSlots } from "./model/slotEngine.js";
+import { getState, initState, StateSubscriber, updateProviders, updateUtcNow } from "./model/state.js";
 
 const rosterUrl = "https://jsonplaceholder.typicode.com/users?_limit=10";
 // Fake API to fetch 10 random providers
@@ -113,7 +114,7 @@ function renderStats(state){
 
 function updateProvidersSelect(providers){
     providers.forEach((provider)=>{
-        console.log(provider)
+        // console.log(provider)
 
         let option = document.createElement('option')
         option.id = provider.id
@@ -123,6 +124,8 @@ function updateProvidersSelect(providers){
         providerSelect.appendChild(option)
     })
 }
+
+console.log('Slots: ', generateSlots('manish', '23/05/26'))
 
 
 async function init(){
