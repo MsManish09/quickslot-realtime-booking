@@ -60,8 +60,10 @@ export function updateBookings(target, slotTime){
     let providerId = target.providerId
     let date = target.date
     let time = slotTime
+    let providerName= target.providerName
 
     state.bookings.push({
+        providerName,
         providerId,
         date,
         time

@@ -1,6 +1,7 @@
 import { generateSlots } from "./model/slotEngine.js";
 import { getState, initState, StateSubscriber, updateBookings, updateProviders, updateUtcNow } from "./model/state.js";
 import { slotCard } from "./view/slotCard.js";
+import { getSelectedDateValue, getSelectedProviderValue, onSearchSlotClick, onSlotClick, renderBookings, renderProviderOptions, renderSlots, renderStats, setSlotsHeadline } from "./view/ui.js";
 
 const rosterUrl = "https://jsonplaceholder.typicode.com/users?_limit=10";
 // Fake API to fetch 10 random providers
@@ -12,22 +13,7 @@ const clockUrl = 'https://time.now/developer/api/timezone/Asia/Kolkata';
 const targetSlot = {}
 const pendingSlot =  null
 
-// dom selection
 
-// stats
-const providerStat = document.getElementById('providerStat')
-const bookedStat  = document.getElementById('bookedStat')
-const ClockStat = document.getElementById('ClockStat')
-
-// last sync
-const lastSync = document.getElementById('lastSync')
-
-// select provider + date
-const providerSelect = document.getElementById('providerSelect')
-const dateSelect = document.getElementById('dateSelect')
-const searchSlotBtn = document.getElementById('searchSlot')
-const slotsGrid = document.getElementById('slotsGrid')
-const slotsDisplayHeadline =  document.getElementById('selectedProvider-date')
 
 // app state -> tp store state data from state.js
 let stateData ;
@@ -53,7 +39,8 @@ async function fetchProviders(){
 
         // update providers in state
         updateProviders(providers)
-        updateProvidersSelect(providers)
+        // render provider options(view) inside select
+        renderProviderOptions(providers)
 
     } catch (error) {
         console.error('Error loading providers: ', error)
@@ -109,83 +96,62 @@ function renderApp(){
 
     let state = getState()
 
-    renderStats(state)
-}
-
-function renderStats(state){
-    if(!state) return
-
-    providerStat.innerText = state.providers.length
-    bookedStat.innerText = state.bookings.length
-    ClockStat.innerText = `${state.utcNow}`
-    lastSync.innerText = `Last Sync ${state.utcNow}`
+    renderStats(state) // ui.js
+    renderBookings(state.bookings)
 }
 
 // search slot functionaliyt
-searchSlotBtn.addEventListener('click', (e)=>{
-    e.preventDefault()
+onSearchSlotClick(()=>{
     renderSlotPills()
 })
 
 // functionality to render slotpills
 function renderSlotPills(){
-    // generate slots
-    if(!providerSelect.value || !dateSelect.value){
+
+    const providerValue = getSelectedProviderValue()
+    const dateValue = getSelectedDateValue()
+
+    if(!providerValue || !dateValue){
         alert('Select provider and date')
         return
     }
-    console.log('providerSelect.value: ', providerSelect.value)
-    console.log('dateSelect: ', dateSelect.value)
+    
+    let providerName = providerValue.split('-')[0].trim()
 
-    let provider = providerSelect.value.split('-')[0].trim()
-
-    // find provider id
-    const selectedProvider = stateData.providers.find(p => p.name == provider)
+    // find provider date -> using provider name
+    const selectedProvider = stateData.providers.find(p => p.name == providerName)
 
     if(!selectedProvider) return
 
-    slotsDisplayHeadline.innerText = ''
-    slotsDisplayHeadline.innerText = `${selectedProvider.name} | ${dateSelect.value}`
+    // update slot display headline
+    setSlotsHeadline(selectedProvider.name, dateValue)
     
+    targetSlot.providerName= providerName
     targetSlot.providerId = selectedProvider.id
-    targetSlot.date = dateSelect.value
-    console.log('Target slots: ', targetSlot)
+    targetSlot.date = dateValue
 
     const slots = generateSlots(targetSlot)
-    console.log(slots)
 
-    //generate pills
-    const slotPills= slotCard(slots)
-
-    // append to slots grid
-    slotsGrid.innerHTML = slotPills
+    renderSlots(slots)
 
 }
+
 
 // slot booking confirmation -> using event delegation
-document.addEventListener('click', (e)=>{
-    if(!e.target.classList.contains('slot')) return
+onSlotClick((slotTime)=>{
 
-    let slotTime = e.target.dataset.slotTime
+    const confirmed = confirm(`Are you sure you want to book the slot: ${slotTime}`)
 
-    alert(`Are you sure you want to booking the slot: ${slotTime}`)
-    updateBookings(targetSlot, slotTime )
+    if(confirmed){
+        updateBookings(targetSlot, slotTime )
+
+        //update slots ui -> after booking re-render slot display 
+        renderSlotPills()
+        renderBookings(getState().bookings)
+    }
+
+    
 })
-
-
-// render providers option insde provider Select
-function updateProvidersSelect(providers){
-    providers.forEach((provider)=>{
-
-        let option = document.createElement('option')
-        option.id = `${provider.id}`
-        option.innerText =`${provider.name} - ${provider.speciality}`
-
-        // append to select
-        providerSelect.appendChild(option)
-    })
-}
-
 
 
 async function init(){
