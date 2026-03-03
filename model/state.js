@@ -5,6 +5,7 @@ export const state ={
     providers: [],
     utcNow: null,
     bookings: [],
+    targetSlot: {providerId: null, providerName: null, date: null }
 }
 
 export function initState(){
@@ -37,15 +38,11 @@ function saveState(){
 /* ================================
         state CRUD Api's
 ===================================*/
-// c
 
-
-// r
 export function getState(){
     return state
 }
 
-// u
 export function updateUtcNow(newUtc){
     state.utcNow = newUtc
     saveState()
@@ -57,24 +54,45 @@ export function updateProviders(providersList){
 }
 
 export function updateBookings(target, slotTime){
+    const id = crypto.randomUUID()
     let providerId = target.providerId
     let date = target.date
     let time = slotTime
     let providerName= target.providerName
 
     state.bookings.push({
+        id,
         providerName,
         providerId,
         date,
         time
     })
+    saveState()
+}
 
+export function deleteIndividaulBooking(id){
+    state.bookings = state.bookings.filter(b => b.id !== id)
+    saveState()
+}
 
+// function to update target slot
+export function setTargetSlot({ providerId, providerName, date }) {
+  state.targetSlot = { providerId, providerName, date }
+  saveState()
+}
+
+// Function to get target slot
+export function getTargetSlot(){
+    return state.targetSlot
+}
+
+// clear target slot
+export function clearTargetSlot(){
+    state.targetSlot = {providerId: null, providerName: null, date: null }
     saveState()
 }
 
 
-// d
 
 
 

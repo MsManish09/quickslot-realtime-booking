@@ -341,65 +341,80 @@ input, select {
 #bookingsDisplay {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-  gap: 12px;
-  /* background: transparent; */
-  border: none;
+  gap: 14px;
   padding: 1rem 5px;
 }
 
+/* BOOKING CARD */
 .bookingCard {
+  position: relative; 
   display: flex;
   flex-direction: column;
-  align-items: center;      /* horizontal center */
-  justify-content: center;
-  text-align: center;       /* center text */
-  gap: 10px;
+  align-items: center;
+  text-align: center;
+  gap: 8px;
+  padding: 18px 16px;
   width: 100%;
   max-width: 400px;
-  padding: 18px;
-  border-radius: 18px;
   background: white;
+  border-radius: 18px;
   border: 1px solid #e3c677;
   box-shadow: 0 6px 14px rgba(0,0,0,0.08);
   transition: all .25s ease;
 }
 
-
 .bookingCard:hover {
   transform: translateY(-3px);
   box-shadow: 0 12px 24px rgba(201,162,39,.25);
+}
+
+.bookingDeleteBtn {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  border: 1px solid #e6c77a;
+  border: 1px solid #d66;
+  color: #a33;
+  font-size: 0.9rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   cursor: pointer;
+  transition: all .2s ease;
+}
+
+.bookingDeleteBtn:hover {
+  background: #d66;
+  color: white;
+  border-color: var(--gold-deep);
+  box-shadow: 0 6px 14px rgba(201,162,39,.35);
 }
 
 
+
 .bookingIndex {
-  width: 34px;
-  height: 34px;
+  width: 32px;
+  height: 32px;
   border-radius: 50%;
   background: linear-gradient(145deg, var(--gold-primary), var(--gold-deep));
   color: white;
   font-weight: 700;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   display: flex;
   align-items: center;
   justify-content: center;
   box-shadow: 0 4px 10px rgba(201,162,39,.35);
 }
 
-.bookingHeader {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 8px;
-  gap: 10px;
-}
-
 .bookingProvider {
   font-weight: 700;
-  color: var(--gold-dark);
   font-size: 1rem;
+  color: var(--gold-dark);
 }
 
 .bookingDate {
@@ -414,10 +429,12 @@ input, select {
 }
 
 .bookingTime {
-  font-size: 1.1rem;
+  font-size: 1.05rem;
   font-weight: 600;
   color: #5f4b1c;
 }
+
+
 
 
 

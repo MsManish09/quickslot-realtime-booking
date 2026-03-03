@@ -105,3 +105,13 @@ export function onSlotClick(handler){
         
     })
 }
+
+// functionaliyt to delete individaul booking ->  eventdelegation
+export function individualBookingDelete(handler){
+    document.addEventListener('click', (e)=>{
+        if(!e.target.classList.contains('bookingDeleteBtn')) return
+
+        // console.log(e.target.dataset.id)
+        handler(e.target.dataset.id)
+    })
+}
