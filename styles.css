@@ -434,8 +434,116 @@ input, select {
   color: #5f4b1c;
 }
 
+/* CONFIRM MODAL */
+.modalbackDrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+#modalBox{
+  background-color: var(--gold-light);
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  /* align-items: center; */
+  border-radius: 16px;
+  width: 375px;
+  
+}
+
+.modalele{
+  width: 100%;
+}
+
+.modal-header{
+  display: flex;
+  width: 100%;
+  gap: 1rem;
+  justify-content: space-between;
+  
+}
+
+.modal-header div, .modal-body{
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+  margin-bottom: 1.5rem;
+  color: var(--dark-soft);
+}
+
+.modal-header p{
+  font-size: medium;
+  font-weight: 200;
+  color: var(--gold-dark);
+}
+
+.modal-header h3{
+  font-size: larger;
+  color: var(--gold-dark);
+}
+
+.modal-body textarea{
+  padding: 0.5rem;
+  border-radius: 10px;
+  border: 1px solid var(--gold-deep);
+  font-size: 0.8rem;
+  font-weight: lighter;
+  background-color: var(--gold-light);
+  outline: none;
+  color: var(--gold-dark);
+}
+.modal-body h4{
+  color: var(--gold-dark);
+}
+
+.modal-footer{
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+}
+
+.modal-footer button{
+  width: 100px;
+  padding: 8px 0;
+  border-radius: 10px;
+}
+
+#confirmBooking{
+  background-color: var(--gold-primary);
+  color: var(--dark-soft);
+  border: 1px solid var(--gold-dark);
+}
+
+#confirmBooking:hover{
+  background-color: var(--gold-deep);
+  transform: scale(1.05);
+}
 
 
+
+
+#modalCloseBtn{
+  width: 30px;
+  height: 30px;
+  background-color: var(--gold-primary);
+  border-radius: 50%;
+  border: 1px solid var(--gold-dark);
+}
+
+#modalCloseBtn:hover{
+  background-color: var(--gold-deep);
+  transform: scale(1.05);
+}
+
+.hidden{
+  display: none;
+}
 
 
 /* RESPONSIVE DESIGN */
