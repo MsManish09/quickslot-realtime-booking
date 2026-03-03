@@ -5,7 +5,7 @@ export const state ={
     providers: [],
     utcNow: null,
     bookings: [],
-    targetSlot: {providerId: null, providerName: null, date: null }
+    targetSlot: {providerId: null, providerName: null, date: null, notes: null }
 }
 
 export function initState(){
@@ -53,19 +53,21 @@ export function updateProviders(providersList){
     saveState()
 }
 
-export function updateBookings(target, slotTime){
+export function updateBookings(target, slotTime, slotNotes){
     const id = crypto.randomUUID()
     let providerId = target.providerId
     let date = target.date
     let time = slotTime
     let providerName= target.providerName
+    let notes = slotNotes
 
     state.bookings.push({
         id,
         providerName,
         providerId,
         date,
-        time
+        time,
+        notes
     })
     saveState()
 }
@@ -78,7 +80,8 @@ export function deleteIndividaulBooking(id){
 // function to update target slot
 export function setTargetSlot({ providerId, providerName, date }) {
   state.targetSlot = { providerId, providerName, date }
-  saveState()
+//   saveState()
+    notify()
 }
 
 // Function to get target slot

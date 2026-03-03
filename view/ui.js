@@ -22,6 +22,16 @@ const slotsDisplayHeadline =  document.getElementById('selectedProvider-date')
 // bookings display
 const bookingsDisplay = document.getElementById('bookingsDisplay')
 
+// confimr modal selection
+const confirmModal = document.querySelector('.modalbackDrop')
+const modalProviderNameDisplay = document.getElementById('m-Selected-provider-name')
+const modalCloseBtn = document.getElementById('modalCloseBtn')
+const modalSlotDetails = document.getElementById('m-slot-details')
+const modalSlotNotes = document.getElementById('slotNotes')
+const bookingConfirmBtn = document.getElementById('confirmBooking')
+
+// local state
+let slotTime= null
 
 // function ot render stats
 export function renderStats(state){
@@ -92,17 +102,48 @@ export function onSearchSlotClick(handler){
     })
 }
 
+// update modal content
+export function setModalContent(target, slotTime){
+    modalProviderNameDisplay.innerText = `${target.providerName}`
+    modalSlotDetails.innerText = `${target.date} | ${slotTime}`
+}
 
-// slot booking confirmation -> using event delegation
+
+// slot booking confirmation modal -> using event delegation
 export function onSlotClick(handler){
     document.addEventListener('click', (e)=>{
         if(!e.target.classList.contains('slot')) return
 
-        let slotTime = e.target.dataset.slotTime
+        slotTime = e.target.dataset.slotTime
         if (!slotTime) return
 
+        // opne confirm modal
+        confirmModal.classList.remove('hidden')
         handler(slotTime)
         
+    })
+}
+
+// booking confimration functionality
+export function onBookingConfirmation(handler){
+    bookingConfirmBtn.addEventListener('click', (e)=>{
+        let slotNotes = modalSlotNotes.value || ''
+        handler(slotTime, slotNotes)
+    })
+}
+
+// once bookings is confirmed -> close modal
+export function closeModal(){
+    // 0.3 sec time gap 
+    setTimeout(() => {
+        confirmModal.classList.add('hidden')
+    }, 300);
+}
+
+// functionality to close modal via closeBtn
+export function modalCloseViaClick(handler){
+    modalCloseBtn.addEventListener('click', ()=>{
+        handler()
     })
 }
 

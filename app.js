@@ -2,7 +2,7 @@ import { generateSlots } from "./model/slotEngine.js";
 import { deleteIndividaulBooking, getState, getTargetSlot, initState, setTargetSlot, StateSubscriber, updateBookings, updateProviders, updateUtcNow } from "./model/state.js";
 import { fetchProviders, fetchUtcTime } from "./services/api.js";
 import { slotCard } from "./view/slotCard.js";
-import { getSelectedDateValue, getSelectedProviderValue, individualBookingDelete, onSearchSlotClick, onSlotClick, renderBookings, renderProviderOptions, renderSlots, renderStats, setSlotsHeadline } from "./view/ui.js";
+import { closeModal, getSelectedDateValue, getSelectedProviderValue, individualBookingDelete, modalCloseViaClick, onBookingConfirmation, onSearchSlotClick, onSlotClick, renderBookings, renderProviderOptions, renderSlots, renderStats, setModalContent, setSlotsHeadline } from "./view/ui.js";
 
 // function to render app ui
 function renderApp(){
@@ -54,19 +54,31 @@ function renderSlotPills(){
 }
 
 
-// slot booking confirmation -> using event delegation
+// slot click, open confirm modal -> using event delegation
 onSlotClick((slotTime)=>{
 
-    const confirmed = confirm(`Are you sure you want to book the slot: ${slotTime}`)
+    // update modal content
+    setModalContent(getTargetSlot(), slotTime)
 
-    if(confirmed){
-        updateBookings(getTargetSlot(), slotTime )
+})
 
-        //update slots ui -> after booking re-render slot display 
-        renderSlotPills()
-        renderBookings(getState().bookings)
-    }
+// booking confirmation
+onBookingConfirmation((slotTime, slotNotes)=>{
+    // update bookings in state
+    updateBookings(getTargetSlot(), slotTime, slotNotes)
 
+    // once booking is confirmed -> close modal
+    closeModal()
+
+    //re-render ui after booking confirm
+    renderSlotPills()
+
+
+})
+
+// close modal functionality
+modalCloseViaClick(()=>{
+    closeModal()
 })
 
 // functionality to delete individaul booking
