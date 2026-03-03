@@ -1,6 +1,12 @@
 
 export function slotCard(slots){
     
+    let slotPills = ''
+    slots.forEach((slot)=> {
+        slotPills += slotCardCreation(slot)
+    })
+
+    return slotPills
     
 }
 

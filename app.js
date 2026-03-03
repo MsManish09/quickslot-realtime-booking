@@ -26,8 +26,6 @@ const providerSelect = document.getElementById('providerSelect')
 const dateSelect = document.getElementById('dateSelect')
 const searchSlotBtn = document.getElementById('searchSlot')
 
-
-
 // function to fetch providersList
 async function fetchProviders(){
     try {
