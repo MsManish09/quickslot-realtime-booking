@@ -1,5 +1,5 @@
 import { generateSlots } from "./model/slotEngine.js";
-import { getState, initState, StateSubscriber, updateProviders, updateUtcNow } from "./model/state.js";
+import { getState, initState, StateSubscriber, updateBookings, updateProviders, updateUtcNow } from "./model/state.js";
 import { slotCard } from "./view/slotCard.js";
 
 const rosterUrl = "https://jsonplaceholder.typicode.com/users?_limit=10";
@@ -27,6 +27,15 @@ const providerSelect = document.getElementById('providerSelect')
 const dateSelect = document.getElementById('dateSelect')
 const searchSlotBtn = document.getElementById('searchSlot')
 const slotsGrid = document.getElementById('slotsGrid')
+const slotsDisplayHeadline =  document.getElementById('selectedProvider-date')
+
+// app state -> tp store state data from state.js
+let stateData ;
+
+function getStateData(){
+    stateData = getState()
+    console.log('State data: ', stateData)
+}
 
 // function to fetch providersList
 async function fetchProviders(){
@@ -121,13 +130,26 @@ searchSlotBtn.addEventListener('click', (e)=>{
 // functionality to render slotpills
 function renderSlotPills(){
     // generate slots
-    if(!providerSelect.value || !dateSelect){
+    if(!providerSelect.value || !dateSelect.value){
         alert('Select provider and date')
         return
     }
-    targetSlot.providerId = providerSelect.id
+    console.log('providerSelect.value: ', providerSelect.value)
+    console.log('dateSelect: ', dateSelect.value)
+
+    let provider = providerSelect.value.split('-')[0].trim()
+
+    // find provider id
+    const selectedProvider = stateData.providers.find(p => p.name == provider)
+
+    if(!selectedProvider) return
+
+    slotsDisplayHeadline.innerText = ''
+    slotsDisplayHeadline.innerText = `${selectedProvider.name} | ${dateSelect.value}`
+    
+    targetSlot.providerId = selectedProvider.id
     targetSlot.date = dateSelect.value
-    console.log('Target slot: ', targetSlot)
+    console.log('Target slots: ', targetSlot)
 
     const slots = generateSlots(targetSlot)
     console.log(slots)
@@ -140,12 +162,23 @@ function renderSlotPills(){
 
 }
 
+// slot booking confirmation -> using event delegation
+document.addEventListener('click', (e)=>{
+    if(!e.target.classList.contains('slot')) return
+
+    let slotTime = e.target.dataset.slotTime
+
+    alert(`Are you sure you want to booking the slot: ${slotTime}`)
+    updateBookings(targetSlot, slotTime )
+})
+
+
+// render providers option insde provider Select
 function updateProvidersSelect(providers){
     providers.forEach((provider)=>{
-        // console.log(provider)
 
         let option = document.createElement('option')
-        option.id = provider.id
+        option.id = `${provider.id}`
         option.innerText =`${provider.name} - ${provider.speciality}`
 
         // append to select
@@ -153,7 +186,6 @@ function updateProvidersSelect(providers){
     })
 }
 
-console.log('Slots: ', generateSlots('manish', '23/05/26'))
 
 
 async function init(){
@@ -161,10 +193,11 @@ async function init(){
     initState() 
     // StateSubscriber(updatedState)
     StateSubscriber(renderApp)
-    console.log('Current State: ', getState() )
+    StateSubscriber(getStateData)
 
     await fetchProviders()
     await fetchUtcTime()
+    getStateData()
     renderApp()
 }
 

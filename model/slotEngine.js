@@ -26,12 +26,10 @@ function isBooked(target, slotTime, bookings){
 
 
     // check is target + slotTime present in bookings
-    let isBooked = bookings.some(b =>
-        b.id == target.id &&
+    return bookings.some(b =>
+        b.providerId == target.providerId &&
         b.date == target.date &&
-        b.slotTime == slotTime
+        b.time == slotTime
     )
-
-    return isBooked
 
 }

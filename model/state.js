@@ -56,6 +56,21 @@ export function updateProviders(providersList){
     saveState()
 }
 
+export function updateBookings(target, slotTime){
+    let providerId = target.providerId
+    let date = target.date
+    let time = slotTime
+
+    state.bookings.push({
+        providerId,
+        date,
+        time
+    })
+
+
+    saveState()
+}
+
 
 // d
 
