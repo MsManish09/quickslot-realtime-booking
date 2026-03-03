@@ -263,14 +263,14 @@ input, select {
 }
 
 
-#slotsGrid.hasSlots {
+#slotsGrid {
   display: flex;
   flex-wrap: wrap;
   gap: 12px;
-  justify-content: flex-start;
-  background: transparent;
+  justify-content: center;
+  /* background: transparent; */
   border: none;
-  padding: 0;
+  padding: 16px 5px;
 }
 
 /* slots */

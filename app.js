@@ -1,5 +1,6 @@
 import { generateSlots } from "./model/slotEngine.js";
 import { getState, initState, StateSubscriber, updateProviders, updateUtcNow } from "./model/state.js";
+import { slotCard } from "./view/slotCard.js";
 
 const rosterUrl = "https://jsonplaceholder.typicode.com/users?_limit=10";
 // Fake API to fetch 10 random providers
@@ -25,6 +26,7 @@ const lastSync = document.getElementById('lastSync')
 const providerSelect = document.getElementById('providerSelect')
 const dateSelect = document.getElementById('dateSelect')
 const searchSlotBtn = document.getElementById('searchSlot')
+const slotsGrid = document.getElementById('slotsGrid')
 
 // function to fetch providersList
 async function fetchProviders(){
@@ -108,6 +110,34 @@ function renderStats(state){
     bookedStat.innerText = state.bookings.length
     ClockStat.innerText = `${state.utcNow}`
     lastSync.innerText = `Last Sync ${state.utcNow}`
+}
+
+// search slot functionaliyt
+searchSlotBtn.addEventListener('click', (e)=>{
+    e.preventDefault()
+    renderSlotPills()
+})
+
+// functionality to render slotpills
+function renderSlotPills(){
+    // generate slots
+    if(!providerSelect.value || !dateSelect){
+        alert('Select provider and date')
+        return
+    }
+    targetSlot.providerId = providerSelect.id
+    targetSlot.date = dateSelect.value
+    console.log('Target slot: ', targetSlot)
+
+    const slots = generateSlots(targetSlot)
+    console.log(slots)
+
+    //generate pills
+    const slotPills= slotCard(slots)
+
+    // append to slots grid
+    slotsGrid.innerHTML = slotPills
+
 }
 
 function updateProvidersSelect(providers){

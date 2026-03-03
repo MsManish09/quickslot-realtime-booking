@@ -9,6 +9,8 @@ export function generateSlots(target){
             const hourStr = String(hour).padStart(2, '0');
             const time= `${hourStr}:${t}`
             let slot ={
+                providerId: target.providerId,
+                date: target.date,
                 time,
                 isBooked: isBooked(target, time, bookings)
             }
