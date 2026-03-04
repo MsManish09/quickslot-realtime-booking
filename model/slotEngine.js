@@ -25,7 +25,7 @@ export function generateSlots(target){
 function isBooked(target, slotTime, bookings, utcNow){
 
 
-    const targetDate = new Date(`${target.date}T${slotTime}:00+05:30`);
+    const targetDate = new Date(`${target.date}T${slotTime}:00`);
 
     if(utcNow >= targetDate ){
         return true

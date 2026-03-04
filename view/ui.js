@@ -63,6 +63,7 @@ export function renderProviderOptions(providers){
 
         let option = document.createElement('option')
         option.id = `${provider.id}`
+        option.value=`${provider.id}`
         option.innerText =`${provider.name} - ${provider.speciality}`
 
         // append to select
@@ -131,6 +132,12 @@ export function onSlotClick(handler){
         // click on anyelemnt of .slot is registed
         const slotEl = e.target.closest('.slot')
         if(!slotEl) return
+
+        // prevent click on disabled slots
+        if(slotEl.classList.contains('slot-booked-true')){
+            alert('Slot is already booked. Select a available slot.')
+            return
+        }
 
         // extract slot time
         slotTime = slotEl.dataset.slotTime

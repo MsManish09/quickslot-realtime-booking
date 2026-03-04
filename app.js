@@ -28,12 +28,11 @@ function renderSlotPills(){
         alert('Select provider and date')
         return
     }
+    console.log('Provider value: ', providerValue )
     
-    let providerName = providerValue.split('-')[0].trim()
 
-    // find provider date -> using provider name
-    const selectedProvider = getState().providers.find(p => p.name == providerName)
-
+    // find provider name -> using slected provider value (name + speciality)
+    const selectedProvider = getState().providers.find(p => p.id === Number(providerValue))
     if(!selectedProvider) return
 
     // update slot display headline
@@ -41,7 +40,7 @@ function renderSlotPills(){
     
     // update state.targetslot
     setTargetSlot({
-        providerName: providerName,
+        providerName: selectedProvider.name,
         providerId : selectedProvider.id,
         date : dateValue
     })

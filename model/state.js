@@ -40,17 +40,25 @@ function saveState(){
 ===================================*/
 
 export function getState(){
-    return state
+
+    // prevent state mutation
+    return Object.freeze({ 
+        ...state,
+        bookings: [...state.bookings],
+        providers: [...state.providers],
+  })
 }
 
 export function updateUtcNow(newUtc){
     state.utcNow = newUtc
-    saveState()
+    // saveState()
+    notify()
 }
 
 export function updateProviders(providersList){
     state.providers = providersList
-    saveState()
+    // saveState()
+    notify()
 }
 
 export function updateBookings(target, slotTime, slotNotes){
@@ -92,7 +100,8 @@ export function getTargetSlot(){
 // clear target slot
 export function clearTargetSlot(){
     state.targetSlot = {providerId: null, providerName: null, date: null }
-    saveState()
+    // saveState()
+    notify()
 }
 
 
