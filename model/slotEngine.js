@@ -1,7 +1,7 @@
 import { getState } from "./state.js";
 
 export function generateSlots(target){
-    const {bookings} = getState()
+    const {utcNow,bookings } = getState()
 
     let slots = []
     for(let hour=9; hour <= 17; hour++){
@@ -12,7 +12,7 @@ export function generateSlots(target){
                 providerId: target.providerId,
                 date: target.date,
                 time,
-                isBooked: isBooked(target, time, bookings)
+                isBooked: isBooked(target, time, bookings, utcNow)
             }
             slots.push(slot)
         })
@@ -22,7 +22,14 @@ export function generateSlots(target){
 }
 
 // function to check is slot is already booked
-function isBooked(target, slotTime, bookings){
+function isBooked(target, slotTime, bookings, utcNow){
+
+
+    const targetDate = new Date(`${target.date}T${slotTime}:00+05:30`);
+
+    if(utcNow >= targetDate ){
+        return true
+    }
 
 
     // check is target + slotTime present in bookings

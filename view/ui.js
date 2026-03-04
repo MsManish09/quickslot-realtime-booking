@@ -33,14 +33,28 @@ const bookingConfirmBtn = document.getElementById('confirmBooking')
 // local state
 let slotTime= null
 
+// function to set min date value
+export function setMinDateToday(){
+    const today = new Date().toISOString().split("T")[0]
+    dateSelect.min = today
+    dateSelect.value = today   // suto select todays date
+}
+
 // function ot render stats
 export function renderStats(state){
     if(!state) return
 
     providerStat.innerText = state.providers.length
     bookedStat.innerText = state.bookings.length
-    ClockStat.innerText = `${state.utcNow}`
-    lastSync.innerText = `Last Sync ${state.utcNow}`
+    ClockStat.textContent = state.utcNow.toLocaleTimeString("en-IN", {
+      hour: "2-digit",
+      minute: "2-digit",
+      second: "2-digit",
+    })
+
+    lastSync.innerText =  `Last synced ${new Date().toLocaleTimeString(
+      "en-IN",
+    )}`
 }
 
 // render providers option insde provider Select

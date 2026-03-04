@@ -2,7 +2,7 @@ import { generateSlots } from "./model/slotEngine.js";
 import { deleteIndividaulBooking, getState, getTargetSlot, initState, setTargetSlot, StateSubscriber, updateBookings, updateProviders, updateUtcNow } from "./model/state.js";
 import { fetchProviders, fetchUtcTime } from "./services/api.js";
 import { slotCard } from "./view/slotCard.js";
-import { closeModal, getSelectedDateValue, getSelectedProviderValue, individualBookingDelete, modalCloseViaClick, onBookingConfirmation, onSearchSlotClick, onSlotClick, renderBookings, renderProviderOptions, renderSlots, renderStats, setModalContent, setSlotsHeadline } from "./view/ui.js";
+import { closeModal, getSelectedDateValue, getSelectedProviderValue, individualBookingDelete, modalCloseViaClick, onBookingConfirmation, onSearchSlotClick, onSlotClick, renderBookings, renderProviderOptions, renderSlots, renderStats, setMinDateToday, setModalContent, setSlotsHeadline } from "./view/ui.js";
 
 // function to render app ui
 function renderApp(){
@@ -32,7 +32,6 @@ function renderSlotPills(){
     let providerName = providerValue.split('-')[0].trim()
 
     // find provider date -> using provider name
-
     const selectedProvider = getState().providers.find(p => p.name == providerName)
 
     if(!selectedProvider) return
@@ -91,18 +90,20 @@ individualBookingDelete((id)=>{
 async function init(){
     console.log('Quick slot running')
     initState() 
+    setMinDateToday()
+    
+    // update state utc now
+    const UtcTime =  await fetchUtcTime()
+        updateUtcNow(UtcTime)
+
+    const providers = await fetchProviders()
+        // update providers in state
+        updateProviders(providers)
+        // render provider options(view) inside select
+        renderProviderOptions(providers)
+
     // StateSubscriber(updatedState)
     StateSubscriber(renderApp)
-
-    // present ins services
-        const providers = await fetchProviders()
-            // update providers in state
-            updateProviders(providers)
-            // render provider options(view) inside select
-            renderProviderOptions(providers)
-
-        const UtcTime =  await fetchUtcTime()
-        updateUtcNow(UtcTime)
 
     // render app
     renderApp()

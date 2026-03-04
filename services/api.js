@@ -35,8 +35,9 @@ export async function fetchUtcTime(){
         const res = await fetch(clockUrl)
         let data = await res.json()
         
-        data = extractUtcTime(data.utc_datetime)
-
+        // data = extractUtcTime(data.utc_datetime)
+        data = new Date(data.datetime)
+        console.log('fetch utcTime Fn: date: ', data)
         return data
         
     } catch (error) {
@@ -46,30 +47,30 @@ export async function fetchUtcTime(){
     }
 }
 
-// extract UTC time from api response
-function extractUtcTime(time){
-    const date =  new Date(time)
-    const utc = date.toLocaleTimeString('en-GB', {
-        timeZone: 'UTC',
-        hour: '2-digit',
-        minute: '2-digit',
-        second: '2-digit',
-        hour12: true,
-        timeZoneName: "short"
-    })
-    return utc
-}
+// // extract UTC time from api response
+// function extractUtcTime(time){
+//     const date =  new Date(time)
+//     const utc = date.toLocaleTimeString('en-GB', {
+//         timeZone: 'UTC',
+//         hour: '2-digit',
+//         minute: '2-digit',
+//         second: '2-digit',
+//         hour12: true,
+//         timeZoneName: "short"
+//     })
+//     return utc
+// }
 
-// extract user local time
-function getUserLocalTime() {
-  let now = new Date();
+// // extract user local time
+// export function getUserLocalTime() {
+//   let now = new Date();
 
-    now =  now.toLocaleTimeString("en-GB", {
-    hour: "2-digit",
-    minute: "2-digit",
-    second: "2-digit",
-    hour12: true,
-    timeZoneName: "short"
-  })
-  return now
-}
+//     now =  now.toLocaleTimeString("en-GB", {
+//     hour: "2-digit",
+//     minute: "2-digit",
+//     second: "2-digit",
+//     hour12: true,
+//     timeZoneName: "short"
+//   })
+//   return now
+// }
