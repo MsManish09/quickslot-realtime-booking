@@ -125,13 +125,18 @@ export function setModalContent(target, slotTime){
 
 // slot booking confirmation modal -> using event delegation
 export function onSlotClick(handler){
-    document.addEventListener('click', (e)=>{
-        if(!e.target.classList.contains('slot')) return
 
-        slotTime = e.target.dataset.slotTime
+    document.addEventListener('click', (e)=>{
+
+        // click on anyelemnt of .slot is registed
+        const slotEl = e.target.closest('.slot')
+        if(!slotEl) return
+
+        // extract slot time
+        slotTime = slotEl.dataset.slotTime
         if (!slotTime) return
 
-        // opne confirm modal
+        // open confirm modal
         confirmModal.classList.remove('hidden')
         handler(slotTime)
         
